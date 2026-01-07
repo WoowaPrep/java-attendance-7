@@ -1,5 +1,6 @@
 package attendance;
 
+import attendance.domain.Menu;
 import attendance.view.InputParser;
 import attendance.view.InputView;
 import attendance.view.OutputView;
@@ -22,7 +23,34 @@ public class AttendanceBook {
     }
 
     public void manage() {
+        Menu menu = readMenu();
 
+        play(menu);
+    }
+
+    private Menu readMenu() {
+        return retry(() -> {
+            String input = inputView.printMenu();
+            return Menu.from(input);
+        });
+    }
+
+    private void play(Menu menu) {
+        if (menu == Menu.FIRST) {
+
+        }
+        if (menu == Menu.SECOND) {
+
+        }
+        if (menu == Menu.THIRD) {
+
+        }
+        if (menu == Menu.FOURTH) {
+
+        }
+        if (menu == Menu.QUIT) {
+
+        }
     }
 
     private <T> T retry(Supplier<T> supplier) {
