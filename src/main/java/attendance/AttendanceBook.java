@@ -1,6 +1,8 @@
 package attendance;
 
 import attendance.domain.Menu;
+import attendance.exception.AttendanceException;
+import attendance.exception.ErrorMessage;
 import attendance.view.InputParser;
 import attendance.view.InputView;
 import attendance.view.OutputView;
@@ -24,8 +26,10 @@ public class AttendanceBook {
 
     public void manage() {
         Menu menu = readMenu();
-
-        play(menu);
+        boolean isContinue;
+        do {
+            isContinue = play(menu);
+        } while(isContinue);
     }
 
     private Menu readMenu() {
@@ -35,7 +39,7 @@ public class AttendanceBook {
         });
     }
 
-    private void play(Menu menu) {
+    private boolean play(Menu menu) {
         if (menu == Menu.FIRST) {
 
         }
@@ -49,8 +53,10 @@ public class AttendanceBook {
 
         }
         if (menu == Menu.QUIT) {
-
+            return false;
         }
+
+        throw AttendanceException.from(ErrorMessage.INVALID_INPUT);
     }
 
     private <T> T retry(Supplier<T> supplier) {
