@@ -1,6 +1,5 @@
 package attendance.view;
 
-import attendance.domain.AttendanceTime;
 import attendance.exception.AttendanceException;
 import attendance.exception.ErrorMessage;
 import java.time.LocalTime;
@@ -11,10 +10,10 @@ public class InputParser {
 
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
 
-    public AttendanceTime parseAttendanceTime(String input) {
+    public LocalTime parseAttendanceTime(String input) {
         try {
             LocalTime localTime = LocalTime.parse(input, TIME_FORMATTER);
-            return AttendanceTime.from(localTime);
+            return localTime;
         } catch (DateTimeParseException e) {
             throw AttendanceException.from(ErrorMessage.INVALID_INPUT);
         }

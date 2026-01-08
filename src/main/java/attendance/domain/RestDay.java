@@ -1,8 +1,8 @@
 package attendance.domain;
 
-import attendance.utils.DateTimeUtil;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Set;
 
 public enum RestDay {
 
@@ -24,24 +24,29 @@ public enum RestDay {
         this.date = date;
     }
 
-    public static RestDay from(LocalDate input) {
-        String month = DateTimeUtil.getMonth(input);
-        String day = DateTimeUtil.getDayOfMonth(input);
-        String dayOfWeek = DateTimeUtil.getDayOfWeek(input);
-
+    public static boolean isRestDay(LocalDate targetDate) {
         return Arrays.stream(values())
-                .filter(restDay -> !(restDay.getMonthValue().equals(month) && restDay.getDayOfMonth().equals(day)))
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException(
-                        String.format("[ERROR] %s월 %s일 %s은 등교일이 아닙니다.", month, day, dayOfWeek))
-                );
+                .anyMatch(restDay -> restDay.date.isEqual(targetDate));
     }
 
-    public String getMonthValue() {
-        return DateTimeUtil.getMonth(date);
+    private static final Set<LocalDate> REST_DATES = Set.of(
+            LocalDate.of(2024, 12, 1),
+            LocalDate.of(2024, 12, 7),
+            LocalDate.of(2024, 12, 8),
+            LocalDate.of(2024, 12, 14),
+            LocalDate.of(2024, 12, 15),
+            LocalDate.of(2024, 12, 21),
+            LocalDate.of(2024, 12, 22),
+            LocalDate.of(2024, 12, 25),
+            LocalDate.of(2024, 12, 28),
+            LocalDate.of(2024, 12, 29)
+    );
+
+    public static boolean isRestDayFast(LocalDate targetDate) {
+        return REST_DATES.contains(targetDate);
     }
 
-    public String getDayOfMonth() {
-        return DateTimeUtil.getDayOfMonth(date);
+    public LocalDate getDate() {
+        return date;
     }
 }

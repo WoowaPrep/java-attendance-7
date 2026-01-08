@@ -1,13 +1,9 @@
 package attendance.view;
 
-import attendance.domain.AttendanceStatus;
-import attendance.domain.AttendanceTime;
 import attendance.exception.AttendanceException;
 import attendance.exception.ErrorMessage;
 import attendance.utils.DateTimeUtil;
 import camp.nextstep.edu.missionutils.Console;
-import java.time.LocalDate;
-import java.time.LocalTime;
 
 public class InputView {
 
@@ -23,7 +19,10 @@ public class InputView {
 
     private final static String NICK_NAME_INPUT_MESSAGE = "닉네임을 입력해 주세요.";
     private final static String ATTENDANCE_TIME_INPUT_MESSAGE = "등교 시간을 입력해 주세요.";
-    private final static String ATTENDANCE_TIME_CHECK_MESSAGE = "%s월 %s일 %s %s:%s (%s)" + NEW_LINE;
+
+    private final static String MODIFY_NICK_NAME_INPUT_MESSAGE = "출석을 수정하려는 크루의 닉네임을 입력해 주세요.";
+    private final static String ATTENDANCE_MODIFY_TIME_INPUT_MESSAGE = "수정하려는 날짜(일)를 입력해 주세요.";
+    private final static String MODIFY_TIME_INPUT_MESSAGE = "언제로 변경하겠습니까?";
 
     public String printMenu() {
         String month = DateTimeUtil.todayMonth();
@@ -39,25 +38,25 @@ public class InputView {
         return readLine();
     }
 
+    public String printModifyNickname() {
+        printNewLine();
+        System.out.println(MODIFY_NICK_NAME_INPUT_MESSAGE);
+        return readLine();
+    }
+
     public String printAttendanceTime() {
         System.out.println(ATTENDANCE_TIME_INPUT_MESSAGE);
         return readLine();
     }
 
-    public void printAttendance(AttendanceTime time) {
-        LocalTime localTime = time.getLocalTime();
+    public String printModifyTime() {
+        System.out.println(MODIFY_TIME_INPUT_MESSAGE);
+        return readLine();
+    }
 
-        String month = DateTimeUtil.todayMonth();
-        String day = DateTimeUtil.todayDayOfMonth();
-
-        LocalDate localDate = DateTimeUtil.today();
-        String dayOfWeek = DateTimeUtil.getDayOfWeek(localDate);
-
-        String HH = DateTimeUtil.getHour(localTime);
-        String mm = DateTimeUtil.geMinute(localTime);
-
-        AttendanceStatus attendanceStatus = AttendanceStatus.from(localTime, dayOfWeek);
-        System.out.printf(ATTENDANCE_TIME_CHECK_MESSAGE, month, day, dayOfWeek, HH, mm, attendanceStatus.getName());
+    public String printModifyDay() {
+        System.out.println(ATTENDANCE_MODIFY_TIME_INPUT_MESSAGE);
+        return readLine();
     }
 
     private String readLine() {

@@ -215,4 +215,5 @@ public class DateTimeUtil {
         LocalDate yesterday = today().minusDays(1);
         return getWeekdaysBetween(december1st, yesterday);
     }
+
 }
