@@ -9,6 +9,7 @@ public enum ErrorMessage {
     FILE_READ_FAILED("파일을 읽을 수 없습니다."),
 
     INVALID_INPUT("잘못된 형식을 입력하였습니다."),
+    INVALID_NICK_NAME("등록되지 않은 닉네임입니다."),
     ;
 
     private static final String PREFIX = "[ERROR] ";

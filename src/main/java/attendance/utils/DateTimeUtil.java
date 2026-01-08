@@ -1,7 +1,12 @@
 package attendance.utils;
 
+import attendance.exception.AttendanceException;
+import attendance.exception.ErrorMessage;
 import camp.nextstep.edu.missionutils.DateTimes;
-import java.time.*;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
@@ -32,6 +37,55 @@ public class DateTimeUtil {
             monthString = "0" + monthString;
         }
         return monthString;
+    }
+
+    public static String getMonth(LocalDate input) {
+        int m = input.getMonth().getValue();
+        String mString = String.valueOf(m);
+        if (mString.length() == 1) {
+            mString = "0" + mString;
+        }
+        return mString;
+    }
+
+    public static String getDayOfMonth(LocalDate input) {
+        int d = input.getDayOfMonth();
+        String dString = String.valueOf(d);
+        if (dString.length() == 1) {
+            dString = "0" + dString;
+        }
+        return dString;
+    }
+
+    public static String geMinute(LocalTime input) {
+        int m = input.getMinute();
+        String minute = String.valueOf(m);
+        if (minute.length() == 1) {
+            minute = "0" + minute;
+        }
+        return minute;
+    }
+
+    public static String getHour(LocalTime input) {
+        int h = input.getHour();
+        String hour = String.valueOf(h);
+        if (hour.length() == 1) {
+            hour = "0" + hour;
+        }
+        return hour;
+    }
+
+    public static String getDayOfWeek(LocalDate input) {
+        int d = input.getDayOfMonth();
+        if (d % 7 == 2) return "월요일";
+        if (d % 7 == 3) return "화요일";
+        if (d % 7 == 4) return "수요일";
+        if (d % 7 == 5) return "목요일";
+        if (d % 7 == 6) return "금요일";
+        if (d % 7 == 0) return "토요일";
+        if (d % 7 == 1) return "일요일";
+
+        throw AttendanceException.from(ErrorMessage.INVALID_INPUT);
     }
 
     public static String todayDayOfMonth() {

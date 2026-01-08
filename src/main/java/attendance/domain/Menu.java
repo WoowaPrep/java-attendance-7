@@ -1,8 +1,8 @@
 package attendance.domain;
 
 import attendance.exception.AttendanceException;
-import java.util.Arrays;
 import attendance.exception.ErrorMessage;
+import java.util.Arrays;
 
 public enum Menu {
 
